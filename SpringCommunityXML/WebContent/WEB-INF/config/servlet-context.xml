@@ -15,6 +15,8 @@
 
 	<!-- 스캔할 bean들이 모여있는 패키지를 지정한다. -->
 	<context:component-scan base-package="com.community.controller" />
+	<context:component-scan base-package="com.community.dao" />
+	<context:component-scan base-package="com.community.service" />
 	
 	<!-- Controller에 메서드에서 반환하는 문자열 앞 뒤에 붙힐 경로정보를 셋팅한다. -->
 	<beans:bean class ="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -49,4 +51,12 @@
 	<beans:bean class='org.mybatis.spring.SqlSessionTemplate' id='sqlSessionTemplate'>
 		<beans:constructor-arg index='0' ref='sqlSession' />
 	</beans:bean>
+	
+	<!-- interceptor -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:bean class='com.community.interceptor.TopMenuInterceptor'/>
+		</interceptor>
+	</interceptors>
 </beans:beans>
