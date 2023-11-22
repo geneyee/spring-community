@@ -37,7 +37,7 @@
 						<tbody>
 							<tr>
 								<td class="text-center">5</td>
-								<th><a href='board_read.html'>제목입니다</a></th>
+								<th><a href='${root }board/read'>제목입니다</a></th>
 								<td class="text-center d-none d-xl-table-cell">2018-12-12</td>
 							</tr>
 							<tr>

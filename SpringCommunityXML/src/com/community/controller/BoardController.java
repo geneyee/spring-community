@@ -13,4 +13,8 @@ public class BoardController {
 		return "board/main";
 	}
 
+	@GetMapping("/read")
+	public String read() {
+		return "board/read";
+	}
 }
