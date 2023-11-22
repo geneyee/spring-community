@@ -47,9 +47,9 @@
 					</div>
 					<div class="form-group">
 						<div class="text-right">
-							<a href="board_main.html" class="btn btn-primary">목록보기</a>
-							<a href="board_modify.html" class="btn btn-info">수정하기</a>
-							<a href="board_main.html" class="btn btn-danger">삭제하기</a>
+							<a href="${root }board/main" class="btn btn-primary">목록보기</a>
+							<a href="${root }board/modify" class="btn btn-info">수정하기</a>
+							<a href="${root }board/delete" class="btn btn-danger">삭제하기</a>
 						</div>
 					</div>
 				</div>

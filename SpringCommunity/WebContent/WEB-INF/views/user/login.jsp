@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:url var="root" value="${pageContext.request.contextPath }/"/>
+<c:set var="root" value="${pageContext.request.contextPath }/"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,7 @@
 						<h3>로그인 실패</h3>
 						<p>아이디 비밀번호를 확인해주세요</p>
 					</div>
-					<form action="index.html" method="post">
+					<form action="${root }main" method="get">
 						<div class="form-group">
 							<label for="user_id">아이디</label>
 							<input type="text" id="user_id" name="user_id" class="form-control"/>
@@ -40,7 +40,7 @@
 						</div>
 						<div class="form-group text-right">
 							<button type="submit" class="btn btn-primary">로그인</button>
-							<a href="join.html" class="btn btn-danger">회원가입</a>
+							<a href="${root }user/join" class="btn btn-danger">회원가입</a>
 						</div>
 					</form>
 				</div>

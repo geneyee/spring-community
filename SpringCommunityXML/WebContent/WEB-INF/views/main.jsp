@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<c:url var="root" value="${pageContext.request.contextPath }/"/>
+<%-- <c:url var='root' value="/" /> --%><!-- value="/" jstl contextPath로 설정하면 sessionid 나올 수 있음 -->
+<c:set var="root" value="${pageContext.request.contextPath }/"/><!-- jsp contextPath로 설정  -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,8 +63,7 @@
 							</tr>
 						</tbody>
 					</table>
-					
-					<a href="board_main.html" class="btn btn-primary">더보기</a>
+					<a href="${root }board/main" class="btn btn-primary">더보기</a>
 				</div>
 			</div>
 		</div>
