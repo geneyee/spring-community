@@ -1,4 +1,4 @@
-package com.community.domain;
+package com.community.dto;
 
 public class Content {
 	

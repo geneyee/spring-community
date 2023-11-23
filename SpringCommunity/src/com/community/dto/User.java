@@ -1,4 +1,4 @@
-package com.community.domain;
+package com.community.dto;
 
 public class User {
 
@@ -10,6 +10,14 @@ public class User {
 	
 	private String user_pw;
 	
+	private String user_pw2;
+	
+	public String getUser_pw2() {
+		return user_pw2;
+	}
+	public void setUser_pw2(String user_pw2) {
+		this.user_pw2 = user_pw2;
+	}
 	public int getUser_idx() {
 		return user_idx;
 	}
