@@ -59,4 +59,20 @@
 			<beans:bean class='com.community.interceptor.TopMenuInterceptor'/>
 		</interceptor>
 	</interceptors>
+	
+		<!-- MessageSource를 등록한다. -->
+	<beans:bean class='org.springframework.context.support.ReloadableResourceBundleMessageSource' id='messageSource'>
+		<beans:property name="basenames">
+			<beans:list>
+				<beans:value>/WEB-INF/properties/error_message</beans:value>
+			</beans:list>
+		</beans:property>
+		<!-- 추가: 파일 인코딩 설정 -->
+		<beans:property name="defaultEncoding" value="UTF-8" />
+	</beans:bean>
+	
+	<!-- Message 접근을 위한 접근자 등록 -->
+	<beans:bean class='org.springframework.context.support.MessageSourceAccessor'>
+		<beans:constructor-arg ref='messageSource' />
+	</beans:bean>	
 </beans:beans>
