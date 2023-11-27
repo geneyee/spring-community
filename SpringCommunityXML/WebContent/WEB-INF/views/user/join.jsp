@@ -70,29 +70,29 @@
 
 <!-- id 중복체크 -->
 <script>
-	function checkUserIdExist(){
+	function checkUserIdExist() {
+		const user_id = $("#user_id").val();
 		
-		var user_id = $("#user_id").val()
-		
-		if(user_id.length == 0){
-			alert('아이디를 입력해주세요')
-			return
+		if(user_id.length == 0) {
+			alert('아이디를 입력해주세요.')
+			return;	// function end
 		}
+	
+		const url = "${root}user/checkUserIdExist/" + user_id;
+		console.log(url);
 		
-		$.ajax({
-			url : '${root}user/checkUserIdExist/' + user_id,
-			type : 'get',//요청방식
-			dataType : 'text',//응답결과 문자열
-			success : function(result){
-				if(result.trim()=='true'){//넘어오는 문자열이 true라면
-					alert('사용할 수 있는 아이디 입니다')
-					$("#userIdExist").val('true')
-				} else {
-					alert('사용할 수 없는 아이디 입니다')
-					$("#userIdExist").val('false')
-				}
-			}
-		})
+		fetch(url)
+			.then((response) => {
+				if(response.ok)
+					return response.json()
+				throw new Error('에러')
+			})
+			.catch((error) => console.log(error))
+			.then((data) => {
+		        const msg = data ? "사용할 수 있는 아이디 입니다." : "사용할 수 없는 아이디 입니다.";
+		        alert(msg)
+		        console.log(data)
+			});
 	}
 </script>
 </body>
