@@ -22,5 +22,9 @@ public class UserDao {
 		sqlSessionTemplate.insert("user.addUserInfo", user);
 	}
 	
+	// 로그인
+	public User getLoginUserInfo(User user) {
+		return sqlSessionTemplate.selectOne("user.getLoginUserInfo", user);
+	}
 
 }

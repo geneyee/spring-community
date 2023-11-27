@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
+
+	<!-- id 중복 체크 -->
 	<select id="checkUserIdExist" parameterType="java.lang.String" resultType="java.lang.String">
 		<![CDATA[
 			select user_name
@@ -10,10 +12,20 @@
 		]]>
 	</select>
 	
+	<!-- 회원가입 -->
 	<insert id="addUserInfo" parameterType="com.community.dto.User">
 		<![CDATA[
 			insert into user_table (user_idx, user_name, user_id, user_pw)
 			values (user_seq.nextval, #{user_name}, #{user_id}, #{user_pw})
 		]]>
 	</insert>
+	
+	<!-- 로그인 -->
+	<select id="getLoginUserInfo" parameterType="com.community.dto.User" resultType="com.community.dto.User">
+	<![CDATA[
+		select user_idx, user_name
+		from user_table
+		where user_id = #{user_id} and user_pw = #{user_pw}
+	]]>
+	</select>
 </mapper>

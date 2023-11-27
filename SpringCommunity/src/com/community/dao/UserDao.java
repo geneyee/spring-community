@@ -22,5 +22,9 @@ public class UserDao {
 		userMapper.addUserInfo(user);
 	}
 	
+	// 로그인
+	public User getLoginUserInfo(User user) {
+		return userMapper.getLoginUserInfo(user);
+	}
 
 }
