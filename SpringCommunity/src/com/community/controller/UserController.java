@@ -40,6 +40,9 @@ public class UserController {
 		if(result.hasErrors()) {
 			return "user/join";
 		}
+		
+		userService.addUserInfo(user);
+		
 		return "user/join_success";
 	}
 
