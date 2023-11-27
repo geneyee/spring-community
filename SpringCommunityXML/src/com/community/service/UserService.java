@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.community.dao.UserDao;
+import com.community.dto.User;
 
 @Service
 public class UserService {
@@ -11,6 +12,7 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	// 아이디 중복 체크
 	public boolean checkUserIdExist(String user_id) {
 		
 		String user_name = userDao.checkUserIdExist(user_id);
@@ -19,4 +21,8 @@ public class UserService {
 		return user_name == null ? true : false;
 	}
 
+	// 회원가입
+	public void addUserInfo(User user) {
+		userDao.addUserInfo(user);
+	}
 }

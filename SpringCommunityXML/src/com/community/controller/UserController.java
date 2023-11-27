@@ -2,6 +2,7 @@ package com.community.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.community.dto.User;
+import com.community.service.UserService;
 import com.community.validator.UserValidator;
 
 @RequestMapping("/user")
 @Controller
 public class UserController {
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -34,6 +39,9 @@ public class UserController {
 		if(result.hasErrors()) {
 			return "user/join";
 		}
+		
+		userService.addUserInfo(user);
+		
 		return "user/join_success";
 	}
 
