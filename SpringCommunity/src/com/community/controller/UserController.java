@@ -25,8 +25,16 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(@ModelAttribute("tempLoginUser")User user) {
 		return "user/login";
+	}
+	
+	@PostMapping("/login_pro")
+	public String login(@Valid @ModelAttribute("tempLoginUser")User user, BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/login";
+		}
+		return "user/login_success";
 	}
 	
 	@GetMapping("/join")
