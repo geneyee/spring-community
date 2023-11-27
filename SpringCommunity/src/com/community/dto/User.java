@@ -19,6 +19,14 @@ public class User {
 	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String user_pw;
 	
+	private boolean userIdExist;
+	private boolean userLogin;
+	
+	public User() {
+		this.userIdExist = false;
+		this.userLogin = false;
+	}
+	
 	@Size(min = 4, max = 20)
 	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String user_pw2;
@@ -53,4 +61,17 @@ public class User {
 	public void setUser_pw(String user_pw) {
 		this.user_pw = user_pw;
 	}
+	public boolean isUserIdExist() {
+		return userIdExist;
+	}
+	public void setUserIdExist(boolean userIdExist) {
+		this.userIdExist = userIdExist;
+	}
+	public boolean isUserLogin() {
+		return userLogin;
+	}
+	public void setUserLogin(boolean userLogin) {
+		this.userLogin = userLogin;
+	}
+	
 }
