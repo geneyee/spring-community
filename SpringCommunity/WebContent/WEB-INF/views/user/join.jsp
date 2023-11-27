@@ -37,7 +37,7 @@
 							<div class="input-group">
 								<form:input path="user_id" class="form-control" />
 								<div class="input-group-append">
-									<button type="button" class="btn btn-primary">중복확인</button>
+									<button type="button" class="btn btn-primary" onclick="checkUserIdExist()">중복확인</button>
 								</div>
 							</div>
 							<form:errors path="user_id" style="color:red" />
@@ -67,6 +67,35 @@
 
 <!-- footer -->
 <c:import url="/WEB-INF/views/include/bottom_info.jsp" />
+
+<!-- 아이디 중복검사  -->
+<script>
+	function checkUserIdExist() {
+		const user_id = $("#user_id").val();
+		
+		if(user_id.length == 0) {
+			alert('아이디를 입력해주세요.')
+			return;	// function end
+		}
+
+		const url = "${root}user/checkUserIdExist/" + user_id;
+		console.log(url);
+		
+		fetch(url)
+			.then((response) => {
+				if(response.ok)
+					return response.json()
+				throw new Error('에러')
+			})
+			.catch((error) => console.log(error))
+			.then((data) => {
+		        const msg = data ? "사용할 수 있는 아이디 입니다." : "사용할 수 없는 아이디 입니다.";
+		        alert(msg)
+		        console.log(data)
+			});
+	}
+</script>
+
 </body>
 </html>
 
