@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.community.interceptor.TopMenuInterceptor;
 import com.community.mapper.BoardMapper;
 import com.community.mapper.TopMenuMapper;
+import com.community.mapper.UserMapper;
 import com.community.service.TopMenuService;
 
 @Configuration // Spring MVC 프로젝트에 관련된 설정을 하는 클래스
@@ -97,6 +98,14 @@ public class ServletAppContext implements WebMvcConfigurer {
 	@Bean
 	public MapperFactoryBean<TopMenuMapper> getTopMenuMapper(SqlSessionFactory factory) throws Exception{
 		MapperFactoryBean<TopMenuMapper> factoryBean = new MapperFactoryBean<TopMenuMapper>(TopMenuMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+	
+	// UserMapper
+	@Bean
+	public MapperFactoryBean<UserMapper> getUserMapper(SqlSessionFactory factory) throws Exception{
+		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>(UserMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
