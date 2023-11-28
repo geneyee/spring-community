@@ -23,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.community.dto.User;
+import com.community.interceptor.CheckLoginInterceptor;
 import com.community.interceptor.TopMenuInterceptor;
 import com.community.mapper.BoardMapper;
 import com.community.mapper.TopMenuMapper;
@@ -125,10 +126,16 @@ public class ServletAppContext implements WebMvcConfigurer {
 		// TODO Auto-generated method stub
 		WebMvcConfigurer.super.addInterceptors(registry);
 		
+		// TopMenu
 		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuService, loginUser);
-		
 		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
 		reg1.addPathPatterns("/**");	// 모든 요청주소에 대해 interceptor 적용
+		
+		// 로그인 여부에 따라서
+		CheckLoginInterceptor checkLoginInterceptor = new CheckLoginInterceptor(loginUser);
+		InterceptorRegistration reg2 = registry.addInterceptor(checkLoginInterceptor);
+		reg2.addPathPatterns("/user/modify", "/user/logout", "/board/*");
+		reg2.excludePathPatterns("/board/main");
 	}
 	
 	// message로 등록한 프로퍼티와 db프로퍼티가 충돌나서 db프로퍼티를 불러오지 못해서 따로 Bean으로 등록해주어야 한다.

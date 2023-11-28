@@ -58,6 +58,13 @@
 			<mapping path="/**"/>
 			<beans:bean class='com.community.interceptor.TopMenuInterceptor'/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/user/modify"/>
+			<mapping path="/user/logout"/>
+			<mapping path="/board/*"/>
+			<exclude-mapping path="/board/main"/> <!-- 제외 -->
+			<beans:bean class='com.community.interceptor.CheckLoginInterceptor'/>
+		</interceptor>
 	</interceptors>
 	
 		<!-- MessageSource를 등록한다. -->
