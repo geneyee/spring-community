@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.community.dao.TopMenuDao;
-import com.community.domain.BoardInfo;
+import com.community.dto.BoardInfo;
 
 @Service
 public class TopMenuService {

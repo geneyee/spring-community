@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.community.domain.BoardInfo;
+import com.community.dto.BoardInfo;
 import com.community.service.TopMenuService;
 
 public class TopMenuInterceptor implements HandlerInterceptor {

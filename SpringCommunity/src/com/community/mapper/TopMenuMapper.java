@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.community.domain.BoardInfo;
+import com.community.dto.BoardInfo;
 
 public interface TopMenuMapper {
 	
