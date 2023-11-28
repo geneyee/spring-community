@@ -83,6 +83,11 @@ public class UserController {
 		return "redirect:/main";
 	}
 	
+	@GetMapping("/not_login")
+	public String not_login() {
+		return "user/not_login";
+	}
+	
 	//validator
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
