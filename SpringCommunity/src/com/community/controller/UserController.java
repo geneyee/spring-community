@@ -1,6 +1,7 @@
 package com.community.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,8 +75,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout() {
-		return "user/logout";
+	public String logout(HttpSession session) {
+		
+		loginUser.setUserLogin(false);
+		session.invalidate();
+		
+		return "redirect:/main";
 	}
 	
 	//validator
