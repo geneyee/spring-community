@@ -20,12 +20,13 @@ public class UserValidator implements Validator {
 		
 		String beanName = errors.getObjectName();
 		
-		if(beanName.equals("joinUser")) {
+		if(beanName.equals("joinUser") || beanName.equals("modifyUser")) {
 			if(!user.getUser_pw().equals(user.getUser_pw2())) {
 				errors.rejectValue("user_pw", "PwNotEquals");
 				errors.rejectValue("user_pw2", "PwNotEquals");
 			}
-		
+		}
+		if(beanName.equals("joinUser")) {
 			if(user.isUserIdExist() == false) {
 				errors.rejectValue("user_id", "DontCheckUserIdExist");
 			}

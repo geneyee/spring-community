@@ -22,10 +22,28 @@
 	
 	<!-- 로그인 -->
 	<select id="getLoginUserInfo" parameterType="com.community.dto.User" resultType="com.community.dto.User">
-	<![CDATA[
-		select user_idx, user_name
-		from user_table
-		where user_id = #{user_id} and user_pw = #{user_pw}
-	]]>
+		<![CDATA[
+			select user_idx, user_name
+			from user_table
+			where user_id = #{user_id} and user_pw = #{user_pw}
+		]]>
 	</select>
+	
+	<!-- 정보수정 - 조회 -->
+	<select id="getModifyUserInfo" parameterType="java.lang.Integer" resultType="com.community.dto.User">
+		<![CDATA[
+			select user_name, user_id
+			from user_table
+			where user_idx = #{user_idx}
+		]]>
+	</select>
+	
+	<!-- 정보수정 - update -->
+	<update id="modifyUserInfo" parameterType="com.community.dto.User">
+		<![CDATA[
+			update user_table
+			set user_pw = #{user_pw}
+			where user_idx = #{user_idx}
+		]]>
+	</update>
 </mapper>

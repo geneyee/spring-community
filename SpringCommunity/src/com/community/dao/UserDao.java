@@ -26,5 +26,15 @@ public class UserDao {
 	public User getLoginUserInfo(User user) {
 		return userMapper.getLoginUserInfo(user);
 	}
+	
+	// 수정 - 조회
+	public User getModifyUserInfo(int user_idx) {
+		return userMapper.getModifyUserInfo(user_idx);
+	}
+	
+	// 수정 - update
+	public void modifyUserInfo(User user) {
+		userMapper.modifyUserInfo(user);
+	}
 
 }

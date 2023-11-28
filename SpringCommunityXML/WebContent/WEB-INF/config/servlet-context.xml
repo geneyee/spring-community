@@ -60,6 +60,7 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/user/modify"/>
+			<mapping path="/user/modify_pro"/>
 			<mapping path="/user/logout"/>
 			<mapping path="/board/*"/>
 			<exclude-mapping path="/board/main"/> <!-- 제외 -->

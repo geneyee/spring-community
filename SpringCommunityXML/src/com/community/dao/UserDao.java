@@ -26,5 +26,15 @@ public class UserDao {
 	public User getLoginUserInfo(User user) {
 		return sqlSessionTemplate.selectOne("user.getLoginUserInfo", user);
 	}
+	
+	// 정보수정 - 조회
+	public User getModifyUserInfo(int user_idx) {
+		return sqlSessionTemplate.selectOne("user.getModifyUserInfo", user_idx);
+	}
+	
+	// 정보수정 - update
+	public void modifyUserInfo(User user) {
+		sqlSessionTemplate.update("user.modifyUserInfo", user);
+	}
 
 }

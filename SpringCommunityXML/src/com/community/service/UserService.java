@@ -44,4 +44,23 @@ public class UserService {
 		}
 	}
 	
+	// 정보수정 - 조회
+	public void getModifyUserInfo(User user) {
+		// 1. 수정할 유저 찾기
+		// 2. 찾은 유저 data -> dto에 담기
+		
+		User target = userDao.getModifyUserInfo(loginUser.getUser_idx());
+		
+		user.setUser_id(target.getUser_id());
+		user.setUser_name(target.getUser_name());
+		user.setUser_idx(loginUser.getUser_idx());
+	}
+	
+	// 정보수정 - update
+	public void modifyUserInfo(User user) {
+		
+		userDao.modifyUserInfo(user);
+
+	}
+	
 }

@@ -70,8 +70,23 @@ public class UserController {
 	}
 
 	@GetMapping("/modify")
-	public String modify() {
+	public String modify(@ModelAttribute("modifyUser") User user) {
+		
+		userService.getModifyUserInfo(user);
+		
 		return "user/modify";
+	}
+	
+	@PostMapping("/modify_pro")
+	public String modify(@Valid @ModelAttribute("modifyUser") User user, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "user/modify";
+		}
+		
+		userService.modifyUserInfo(user);
+		
+		return "user/modify_success"; 
 	}
 	
 	@GetMapping("/logout")

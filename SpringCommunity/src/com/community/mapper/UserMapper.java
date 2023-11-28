@@ -2,6 +2,7 @@ package com.community.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.community.dto.User;
 
@@ -23,5 +24,14 @@ public interface UserMapper {
 			+ "from user_table "
 			+ "where user_id = #{user_id} and user_pw =#{user_pw}")
 	User getLoginUserInfo(User user);
+	
+	// 수정 - 조회
+	@Select("select user_id, user_name from user_table where user_idx=#{user_idx}")
+	User getModifyUserInfo(int user_idx);
+	
+	// 수정 - 비밀번호
+	@Update("update user_table set user_pw = #{user_pw} where user_idx=#{user_idx}")
+	void modifyUserInfo(User user);
+	
 
 }
