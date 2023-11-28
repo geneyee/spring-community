@@ -1,5 +1,7 @@
 package com.community.config;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.community.dto.User;
 import com.community.interceptor.TopMenuInterceptor;
 import com.community.mapper.BoardMapper;
 import com.community.mapper.TopMenuMapper;
@@ -48,6 +52,11 @@ public class ServletAppContext implements WebMvcConfigurer {
 	
 	@Autowired
 	private TopMenuService topMenuService;
+	
+	// RootAppContext - @SessionScope
+	@Resource(name = "loginUser")
+	private User loginUser;
+	
 
 	// Controller의 메서드가 반환하는 jsp의 이름 앞뒤에 경로와 확장자를 붙혀주도록 설정한다.
 	@Override
@@ -116,7 +125,7 @@ public class ServletAppContext implements WebMvcConfigurer {
 		// TODO Auto-generated method stub
 		WebMvcConfigurer.super.addInterceptors(registry);
 		
-		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuService);
+		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuService, loginUser);
 		
 		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
 		reg1.addPathPatterns("/**");	// 모든 요청주소에 대해 interceptor 적용
