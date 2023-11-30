@@ -10,29 +10,40 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<!-- 요청 정보를 분석해서  컨트롤러를 선택하는 서블릿을 지정한다. -->
+	<!-- 요청 정보를 분석해서 컨트롤러를 선택하는 서블릿을 지정한다. -->
 	<servlet>
-        <servlet-name>appServlet</servlet-name>
-        <!-- Spring MVC에서 제공하고 있는 기본 서블릿을 지정한다. -->
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!-- Spring MVC 설정을 위한 xml 파일을 지정한다. -->
-        <init-param>
-        	<param-name>contextConfigLocation</param-name>
-        	<param-value>/WEB-INF/config/servlet-context.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <!-- Bean을 정의할 xml 파일을 지정한다. -->
-    <context-param>
-    	<param-name>contextConfigLocation</param-name>
-    	<param-value>/WEB-INF/config/root-context.xml</param-value>
-    </context-param>
-    
-    <!-- 리스너 설정 -->
+		<servlet-name>appServlet</servlet-name>
+		<!-- Spring MVC에서 제공하고 있는 기본 서블릿을 지정한다. -->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- Spring MVC 설정을 위한 xml 파일을 지정한다. -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- Bean을 정의할 xml 파일을 지정한다. -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/config/root-context.xml</param-value>
+	</context-param>
+
+	<!-- 리스너 설정 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
+
+	<!-- log4j2 -->
+	<context-param>
+		<param-name>log4jConfiguration</param-name>
+		<param-value>/WEB-INF/config/log4j2.xml</param-value>
+	</context-param>
 	
+	<listener>
+		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+	</listener>
+
 	<!-- 파라미터 인코딩 필터 설정 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -46,7 +57,7 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
