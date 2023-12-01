@@ -82,5 +82,9 @@
 	<!-- Message 접근을 위한 접근자 등록 -->
 	<beans:bean class='org.springframework.context.support.MessageSourceAccessor'>
 		<beans:constructor-arg ref='messageSource' />
-	</beans:bean>	
+	</beans:bean>
+	
+	<!-- 파일 업로드 -->	
+	<beans:bean class='org.springframework.web.multipart.support.StandardServletMultipartResolver'
+			    id='multipartResolver'/>
 </beans:beans>
