@@ -2,6 +2,7 @@ package com.community.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -69,6 +70,16 @@ public class BoardService {
 		content.setContent_writer_idx(loginUser.getUser_idx());
 		
 		boardDao.addContentInfo(content);
+	}
+
+	// 게시판 이름
+	public String getBoardInfoName(int board_info_idx) {
+		return boardDao.getBoardInfoName(board_info_idx);
+	}
+	
+	// 게시글 목록
+	public List<Content> getContentList(int content_board_idx) {
+		return boardDao.getContentList(content_board_idx);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.community.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,6 +33,12 @@ public class BoardController {
 	public String main(@RequestParam int board_info_idx, Model model) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
+		
+		String board_info_name = boardService.getBoardInfoName(board_info_idx);
+		model.addAttribute("boardInfoName", board_info_name);
+		
+		List<Content> list = boardService.getContentList(board_info_idx);
+		model.addAttribute("list", list);
 		
 		return "board/main";
 	}
