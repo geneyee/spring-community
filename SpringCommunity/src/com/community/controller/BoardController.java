@@ -44,7 +44,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/read")
-	public String read() {
+	public String read(@RequestParam int board_info_idx, @RequestParam int content_idx, Model model) {
+		
+		model.addAttribute("board_info_idx", board_info_idx);
+		
+		Content content = boardService.getContentInfo(content_idx);
+		model.addAttribute("readContent", content);
+		
 		return "board/read";
 	}
 	

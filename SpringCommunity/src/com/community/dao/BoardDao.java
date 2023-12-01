@@ -28,5 +28,10 @@ public class BoardDao {
 	public List<Content> getContentList(int content_board_idx) {
 		return boardMapper.getContentList(content_board_idx);
 	}
+	
+	// 글 읽기
+	public Content getContentInfo(int content_idx) {
+		return boardMapper.getContentInfo(content_idx);
+	}
 
 }

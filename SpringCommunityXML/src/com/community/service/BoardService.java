@@ -64,6 +64,8 @@ public class BoardService {
 		if(upload_file.getSize() > 0) {
 			String file_name = saveUploadFile(upload_file);
 			log.info("파일 업로드 => {}", file_name);
+			
+			content.setContent_file(file_name);
 		}
 		
 		// 유저 idx
@@ -80,6 +82,11 @@ public class BoardService {
 	// 게시글 목록
 	public List<Content> getContentList(int content_board_idx) {
 		return boardDao.getContentList(content_board_idx);
+	}
+	
+	// 글 읽기
+	public Content getContentInfo(int content_idx) {
+		return boardDao.getContentInfo(content_idx);
 	}
 
 }
