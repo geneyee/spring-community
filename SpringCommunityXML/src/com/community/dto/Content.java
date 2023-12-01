@@ -1,14 +1,24 @@
 package com.community.dto;
 
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class Content {
 	
 	private int content_idx;
 	
+	@NotBlank
 	private String content_subject;
 	
+	@NotBlank
 	private String content_text;
 	
-	private String content_file; 
+	// 클라이언트가 보낸 파일 data 저장 객체
+	private MultipartFile upload_file;
+	
+	// DB에 저장할 파일의 이름
+	private String content_file;  
 	
 	private int content_writer_idx;
 	
@@ -58,6 +68,12 @@ public class Content {
 	}
 	public void setContent_date(String content_date) {
 		this.content_date = content_date;
+	}
+	public MultipartFile getUpload_file() {
+		return upload_file;
+	}
+	public void setUpload_file(MultipartFile upload_file) {
+		this.upload_file = upload_file;
 	}
 
 }
