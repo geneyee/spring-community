@@ -2,6 +2,7 @@ package com.community.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,11 @@ public class BoardDao {
 	// 글 읽기
 	public Content getContentInfo(int content_idx) {
 		return sqlSessionTemplate.selectOne("board.getContentInfo", content_idx);
+	}
+	
+	// 글 수정
+	public void modifyContentInfo(Content content) {
+		sqlSessionTemplate.update("board.modifyContentInfo", content);
 	}
 
 }

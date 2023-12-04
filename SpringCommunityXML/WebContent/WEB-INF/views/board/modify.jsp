@@ -29,6 +29,7 @@
 				<div class="card-body">
 					<form:form action="${root }board/modify_pro" method="post" modelAttribute="modifyContent" enctype="multipart/form-data">
 						<form:hidden path="content_idx"/>
+						<form:hidden path="content_board_idx"/>
 						<div class="form-group">
 							<form:label path="content_writer_name">작성자</form:label>
 							<form:input path="content_writer_name" class="form-control" readonly="true"/>	
@@ -51,6 +52,7 @@
 							<c:if test="${modifyContent.content_file != null }">
 								<label for="content_file">첨부 이미지</label>
 								<img src="${root }upload/${modifyContent.content_file}" width="100%"/>						
+								<form:hidden path="content_file"/>
 							</c:if>
 							<form:input path="upload_file" type="file" class="form-control" accept="image/*" />
 						</div>

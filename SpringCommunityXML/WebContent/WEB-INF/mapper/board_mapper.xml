@@ -45,4 +45,13 @@
 			where c.content_idx = #{content_idx}
 		]]>
 	</select>
+	
+	<!-- 글 수정 -->
+	<update id="modifyContentInfo" parameterType="com.community.dto.Content">
+		<![CDATA[
+			update content_table
+			set content_subject = #{content_subject}, content_text = #{content_text}, content_file = #{content_file, jdbcType=VARCHAR}
+			where content_idx = #{content_idx}
+		]]>
+	</update>
 </mapper>				    

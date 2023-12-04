@@ -90,7 +90,7 @@ public class BoardService {
 	}
 	
 	// 글 수정 - 조회
-	public void getModifyContentInfo(Content content, int content_idx) {
+	public void getModifyContentInfo(Content content, int content_idx, int board_info_idx) {
 		
 		Content target = getContentInfo(content_idx);
 		
@@ -99,10 +99,22 @@ public class BoardService {
 		content.setContent_subject(target.getContent_subject());
 		content.setContent_text(target.getContent_text());
 		content.setContent_file(target.getContent_file());
-		content.setContent_board_idx(target.getContent_board_idx());
-		content.setContent_idx(target.getContent_idx());
+		content.setContent_board_idx(board_info_idx);
+		content.setContent_idx(content_idx);
 		content.setContent_writer_idx(target.getContent_writer_idx());
 		
 	}
 
+	// 글 수정
+	public void modifyContentInfo(Content content) {
+		
+		// 파일 등록
+		MultipartFile upload_file = content.getUpload_file();
+		if(upload_file.getSize() > 0) {
+			String file_name = saveUploadFile(upload_file);
+			content.setContent_file(file_name);
+		}
+		
+		boardDao.modifyContentInfo(content);
+	}
 }

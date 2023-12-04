@@ -89,13 +89,20 @@ public class BoardController {
 		model.addAttribute("board_info_idx", board_info_idx);
 		model.addAttribute("content_idx", content_idx);
 		
-		boardService.getModifyContentInfo(content, content_idx);
+		boardService.getModifyContentInfo(content, content_idx, board_info_idx);
 		
 		return "board/modify";
 	}
 	
 	@PostMapping("modify_pro")
-	public String modify(@Valid @ModelAttribute("modifyContent") Content content) {
+	public String modify(@Valid @ModelAttribute("modifyContent") Content content, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "board/modify";
+		}
+		
+		boardService.modifyContentInfo(content);
+		
 		return "board/modify_success";
 	}
 	
