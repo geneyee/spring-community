@@ -2,7 +2,9 @@ package com.community.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -36,8 +38,8 @@ public class BoardService {
 	// 파일 저장 메서드
 	private String saveUploadFile(MultipartFile upload_file) {
 		
-		// 파일 이름 같을 경우 덮어쓰지 않기 위해서 파일 이름 앞에 시간 붙여서 저장
-		String file_name = System.currentTimeMillis() + "_" + upload_file.getOriginalFilename();
+		// 파일 이름 랜덤
+		String file_name = UUID.randomUUID().toString();
 		
 		try {
 			upload_file.transferTo(new File(path_upload + "/" + file_name));
@@ -116,6 +118,23 @@ public class BoardService {
 		}
 		
 		boardDao.modifyContentInfo(content);
+	}
+	
+	// 글 삭제
+	public void deleteContentInfo(int content_idx) {
+		
+		// 파일 삭제
+		Content target = getContentInfo(content_idx);
+		
+		if(target.getContent_file() != null) {
+				
+			String fileName = target.getContent_file();
+			File file = new File(path_upload + "/" + fileName);
+			file.delete();
+		}
+		
+		boardDao.deleteContentInfo(content_idx);
+		
 	}
 
 }

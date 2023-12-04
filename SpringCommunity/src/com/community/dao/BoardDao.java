@@ -38,5 +38,10 @@ public class BoardDao {
 	public void modifyContentInfo(Content content) {
 		boardMapper.modifyContentInfo(content);
 	}
+	
+	// 글 삭제
+	public void deleteContentInfo(int content_idx) {
+		boardMapper.deleteContentInfo(content_idx);
+	}
 
 }

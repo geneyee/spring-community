@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -116,5 +115,22 @@ public class BoardService {
 		}
 		
 		boardDao.modifyContentInfo(content);
+	}
+	
+	// 글 삭제
+	public void deleteContentInfo(int content_idx) {
+		
+		// 파일 삭제
+		Content target = getContentInfo(content_idx);
+		
+		if(target.getContent_file() != null) {
+				
+			String fileName = target.getContent_file();
+			File file = new File(path_upload + "/" + fileName);
+			file.delete();
+		}
+		
+		boardDao.deleteContentInfo(content_idx);
+		
 	}
 }

@@ -145,7 +145,7 @@ public class ServletAppContext implements WebMvcConfigurer {
 		// 작성자와 로그인 유저 같을 경우에만 - 글 수정
 		CheckWriterInterceptor checkWriterInterceptor = new CheckWriterInterceptor(loginUser, boardService);
 		InterceptorRegistration reg3 = registry.addInterceptor(checkWriterInterceptor);
-		reg3.addPathPatterns("/board/modify");
+		reg3.addPathPatterns("/board/modify", "/board/delete");
 	}
 	
 	// message로 등록한 프로퍼티와 db프로퍼티가 충돌나서 db프로퍼티를 불러오지 못해서 따로 Bean으로 등록해주어야 한다.

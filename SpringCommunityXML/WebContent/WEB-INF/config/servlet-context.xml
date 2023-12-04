@@ -72,6 +72,7 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/board/modify"/>
+			<mapping path="/board/delete"/>
 			<beans:bean class='com.community.interceptor.CheckWriterInterceptor'/>
 		</interceptor>
 	</interceptors>

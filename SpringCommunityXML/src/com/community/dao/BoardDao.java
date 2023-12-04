@@ -40,4 +40,8 @@ public class BoardDao {
 		sqlSessionTemplate.update("board.modifyContentInfo", content);
 	}
 
+	// 글 삭제
+	public void deleteContentInfo(int content_idx) {
+		sqlSessionTemplate.delete("board.deleteContentInfo", content_idx);
+	}
 }
