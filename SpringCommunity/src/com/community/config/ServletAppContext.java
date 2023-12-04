@@ -25,10 +25,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.community.dto.User;
 import com.community.interceptor.CheckLoginInterceptor;
+import com.community.interceptor.CheckWriterInterceptor;
 import com.community.interceptor.TopMenuInterceptor;
 import com.community.mapper.BoardMapper;
 import com.community.mapper.TopMenuMapper;
 import com.community.mapper.UserMapper;
+import com.community.service.BoardService;
 import com.community.service.TopMenuService;
 
 @Configuration // Spring MVC 프로젝트에 관련된 설정을 하는 클래스
@@ -59,6 +61,8 @@ public class ServletAppContext implements WebMvcConfigurer {
 	@Resource(name = "loginUser")
 	private User loginUser;
 	
+	@Autowired
+	private BoardService boardService;
 
 	// Controller의 메서드가 반환하는 jsp의 이름 앞뒤에 경로와 확장자를 붙혀주도록 설정한다.
 	@Override
@@ -137,6 +141,11 @@ public class ServletAppContext implements WebMvcConfigurer {
 		InterceptorRegistration reg2 = registry.addInterceptor(checkLoginInterceptor);
 		reg2.addPathPatterns("/user/modify", "/user/modify_pro", "/user/logout", "/board/*");
 		reg2.excludePathPatterns("/board/main");
+		
+		// 작성자와 로그인 유저 같을 경우에만 - 글 수정
+		CheckWriterInterceptor checkWriterInterceptor = new CheckWriterInterceptor(loginUser, boardService);
+		InterceptorRegistration reg3 = registry.addInterceptor(checkWriterInterceptor);
+		reg3.addPathPatterns("/board/modify");
 	}
 	
 	// message로 등록한 프로퍼티와 db프로퍼티가 충돌나서 db프로퍼티를 불러오지 못해서 따로 Bean으로 등록해주어야 한다.

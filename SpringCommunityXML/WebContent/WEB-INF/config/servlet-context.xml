@@ -70,6 +70,10 @@
 			<exclude-mapping path="/board/main" /> <!-- 제외 -->
 			<beans:bean class='com.community.interceptor.CheckLoginInterceptor' />
 		</interceptor>
+		<interceptor>
+			<mapping path="/board/modify"/>
+			<beans:bean class='com.community.interceptor.CheckWriterInterceptor'/>
+		</interceptor>
 	</interceptors>
 
 	<!-- MessageSource를 등록한다. -->
