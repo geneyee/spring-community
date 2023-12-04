@@ -1,8 +1,11 @@
 package com.community.interceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.community.dto.Content;
@@ -11,13 +14,12 @@ import com.community.service.BoardService;
 
 public class CheckWriterInterceptor implements HandlerInterceptor {
 	
+	@Resource(name = "loginUser")
+	@Lazy
 	private User loginUser;
+	
+	@Autowired
 	private BoardService boardService;
-
-	public CheckWriterInterceptor(User loginUser, BoardService boardService) {
-		this.loginUser = loginUser;
-		this.boardService = boardService;
-	}
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
