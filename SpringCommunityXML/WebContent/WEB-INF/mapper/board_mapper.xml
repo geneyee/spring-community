@@ -39,7 +39,8 @@
 		<![CDATA[
 			select u.user_name as content_writer_name, 
 			    to_char(c.content_date, 'YYYY-MM-DD') as content_date,
-			    c.content_subject, c.content_text, c.content_file
+			    c.content_subject, c.content_text, c.content_file,
+			    c.content_writer_idx
 			from content_table c join user_table u on c.content_writer_idx = u.user_idx
 			where c.content_idx = #{content_idx}
 		]]>

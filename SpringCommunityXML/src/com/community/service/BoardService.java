@@ -88,5 +88,21 @@ public class BoardService {
 	public Content getContentInfo(int content_idx) {
 		return boardDao.getContentInfo(content_idx);
 	}
+	
+	// 글 수정 - 조회
+	public void getModifyContentInfo(Content content, int content_idx) {
+		
+		Content target = getContentInfo(content_idx);
+		
+		content.setContent_writer_name(target.getContent_writer_name());
+		content.setContent_date(target.getContent_date());
+		content.setContent_subject(target.getContent_subject());
+		content.setContent_text(target.getContent_text());
+		content.setContent_file(target.getContent_file());
+		content.setContent_board_idx(target.getContent_board_idx());
+		content.setContent_idx(target.getContent_idx());
+		content.setContent_writer_idx(target.getContent_writer_idx());
+		
+	}
 
 }

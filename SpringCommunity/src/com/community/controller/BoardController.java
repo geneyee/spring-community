@@ -2,6 +2,7 @@ package com.community.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.community.dto.Content;
+import com.community.dto.User;
 import com.community.service.BoardService;
 
 @RequestMapping("/board")
@@ -28,6 +30,8 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	@Resource(name = "loginUser")
+	private User loginUser;
 	
 	@GetMapping("/main") // board/main=?board_info_idx={}
 	public String main(@RequestParam int board_info_idx, Model model) {
@@ -47,9 +51,15 @@ public class BoardController {
 	public String read(@RequestParam int board_info_idx, @RequestParam int content_idx, Model model) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
+		model.addAttribute("content_idx", content_idx);
 		
 		Content content = boardService.getContentInfo(content_idx);
 		model.addAttribute("readContent", content);
+		log.info("작성자 idx => {}",content.getContent_writer_idx());
+		
+		// 글 작성자만 수정, 삭제버튼 활성화
+		model.addAttribute("user_idx", loginUser.getUser_idx());
+		log.info("로그인 유저 idx => {}", loginUser.getUser_idx());
 		
 		return "board/read";
 	}
@@ -73,13 +83,30 @@ public class BoardController {
 	}
 	
 	@GetMapping("/modify")
-	public String modify() {
+	public String modify(@RequestParam int board_info_idx, @RequestParam int content_idx, Model model, 
+			@ModelAttribute("modifyContent") Content content) {
+		
+		model.addAttribute("board_info_idx", board_info_idx);
+		model.addAttribute("content_idx", content_idx);
+		
+		boardService.getModifyContentInfo(content, content_idx);
+		
 		return "board/modify";
+	}
+	
+	@PostMapping("modify_pro")
+	public String modify(@Valid @ModelAttribute("modifyContent") Content content) {
+		return "board/modify_success";
 	}
 	
 	@GetMapping("/delete")
 	public String delete() {
 		return "board/delete";
+	}
+	
+	@GetMapping("/not_writer")
+	public String not_writer() {
+		return "board/not_writer";
 	}
 
 }
