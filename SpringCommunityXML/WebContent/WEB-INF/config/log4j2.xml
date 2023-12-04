@@ -14,10 +14,14 @@
 		</Logger>
 
 		<!--  SQL 로그 출력  -->
-		<logger name="com.community.mapper" level="debug" />
+		<logger name="board" level="debug" />
+		<logger name="user" level="debug" />
+		<logger name="topmenu" level="debug" />
+		
 		<Root level="error">
 			<AppenderRef ref="console" />
 		</Root>
+
 
 		<logger name="jdbc.sqlonly" additivity="false">
 			<level value="info" />
