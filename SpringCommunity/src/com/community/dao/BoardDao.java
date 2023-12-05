@@ -17,9 +17,7 @@ public class BoardDao {
 	
 	// 글쓰기
 	public void addContentInfo(Content content) {
-		for(int i = 0; i <543; i ++) {
-			boardMapper.addContentInfo(content);
-		}
+		boardMapper.addContentInfo(content);
 	}
 	
 	// 게시판 이름
