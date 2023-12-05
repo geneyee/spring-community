@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.community.dto.Content;
+import com.community.dto.Page;
 import com.community.dto.User;
 import com.community.service.BoardService;
 
@@ -34,15 +35,19 @@ public class BoardController {
 	private User loginUser;
 	
 	@GetMapping("/main") // board/main=?board_info_idx={}
-	public String main(@RequestParam int board_info_idx, Model model) {
+	public String main(@RequestParam int board_info_idx, Model model,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
 		
 		String board_info_name = boardService.getBoardInfoName(board_info_idx);
 		model.addAttribute("boardInfoName", board_info_name);
 		
-		List<Content> list = boardService.getContentList(board_info_idx);
+		List<Content> list = boardService.getContentList(board_info_idx, page);
 		model.addAttribute("list", list);
+		
+		Page paging = boardService.getContentCnt(board_info_idx, page);
+		model.addAttribute("page", paging);
 		
 		return "board/main";
 	}

@@ -2,6 +2,7 @@ package com.community.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class BoardDao {
 	}
 	
 	// 게시글 목록
-	public List<Content> getContentList(int content_board_idx) {
-		return sqlSessionTemplate.selectList("board.getContentList", content_board_idx);
+	public List<Content> getContentList(int content_board_idx, RowBounds rowBounds) {
+		return sqlSessionTemplate.selectList("board.getContentList", content_board_idx, rowBounds);
 	}
 	
 	// 글 읽기
@@ -43,5 +44,10 @@ public class BoardDao {
 	// 글 삭제
 	public void deleteContentInfo(int content_idx) {
 		sqlSessionTemplate.delete("board.deleteContentInfo", content_idx);
+	}
+	
+	// 전체 글의 수
+	public int getContentCnt(int content_board_idx) {
+		return sqlSessionTemplate.selectOne("board.getContentCnt", content_board_idx);
 	}
 }

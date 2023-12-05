@@ -2,6 +2,7 @@ package com.community.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,9 @@ public class BoardDao {
 	
 	// 글쓰기
 	public void addContentInfo(Content content) {
-		boardMapper.addContentInfo(content);
+		for(int i = 0; i <543; i ++) {
+			boardMapper.addContentInfo(content);
+		}
 	}
 	
 	// 게시판 이름
@@ -25,8 +28,8 @@ public class BoardDao {
 	}
 	
 	// 게시글 목록
-	public List<Content> getContentList(int content_board_idx) {
-		return boardMapper.getContentList(content_board_idx);
+	public List<Content> getContentList(int content_board_idx, RowBounds rowBounds) {
+		return boardMapper.getContentList(content_board_idx, rowBounds);
 	}
 	
 	// 글 읽기
@@ -42,6 +45,11 @@ public class BoardDao {
 	// 글 삭제
 	public void deleteContentInfo(int content_idx) {
 		boardMapper.deleteContentInfo(content_idx);
+	}
+	
+	// 전체 글의 수
+	public int getContentCnt(int content_board_idx) {
+		return boardMapper.getContentCnt(content_board_idx);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
 
 import com.community.dto.Content;
 
@@ -31,7 +32,7 @@ public interface BoardMapper {
 			+ "from content_table c join user_table u on c.content_writer_idx = u.user_idx "
 			+ "where c.content_board_idx = #{content_board_idx} "
 			+ "order by c.content_idx desc")
-	List<Content> getContentList(int content_board_idx);
+	List<Content> getContentList(int content_board_idx, RowBounds rowBounds);
 	
 	
 	// 글 읽기
@@ -53,4 +54,8 @@ public interface BoardMapper {
 	// 글 삭제
 	@Delete("delete from content_table where content_idx = #{content_idx}")
 	void deleteContentInfo(int content_idx);
+	
+	// 전체 글의 수
+	@Select("select count(*) from content_table where content_board_idx = #{content_board_idx}")
+	int getContentCnt(int content_board_idx);
 }

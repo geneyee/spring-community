@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.community.dao.BoardDao;
 import com.community.dto.Content;
+import com.community.dto.Page;
 import com.community.dto.User;
 
 @Service
@@ -32,6 +34,12 @@ public class BoardService {
 	
 	@Value("${path.upload}")
 	private String path_upload;
+	
+	@Value("${page.listcnt}")
+	private int page_listcnt;
+	
+	@Value("${page.paginationcnt}")
+	private int page_paginationcnt;
 	
 	// 파일 저장 메서드
 	private String saveUploadFile(MultipartFile upload_file) {
@@ -79,8 +87,12 @@ public class BoardService {
 	}
 	
 	// 게시글 목록
-	public List<Content> getContentList(int content_board_idx) {
-		return boardDao.getContentList(content_board_idx);
+	public List<Content> getContentList(int content_board_idx, int page) {
+		
+		int startIndex = (page - 1) * page_listcnt;
+		RowBounds rowBounds = new RowBounds(startIndex, page_listcnt);
+		
+		return boardDao.getContentList(content_board_idx, rowBounds);
 	}
 	
 	// 글 읽기
@@ -120,7 +132,7 @@ public class BoardService {
 	// 글 삭제
 	public void deleteContentInfo(int content_idx) {
 		
-		// 파일 삭제
+		// 파일 삭제(서버)
 		Content target = getContentInfo(content_idx);
 		
 		if(target.getContent_file() != null) {
@@ -131,6 +143,16 @@ public class BoardService {
 		}
 		
 		boardDao.deleteContentInfo(content_idx);
+	}
+	
+	// 페이지네이션
+	public Page getContentCnt(int content_board_idx, int currentPage) {
+		// 전체 글 개수
+		int contentCnt = boardDao.getContentCnt(content_board_idx);
 		
+		// 전체 글의 개수, 현재 페이지번호, 페이지 당 글의 개수, 페이지 버튼의 개수
+		Page page = new Page(contentCnt, currentPage, page_listcnt, page_paginationcnt);
+				
+		return page;
 	}
 }
