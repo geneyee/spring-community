@@ -37,33 +37,34 @@
 					<c:forEach var="obj" items="${list }">
 						<tr>
 							<td class="text-center d-none d-md-table-cell">${obj.content_idx }</td>
-							<td><a href='${root }board/read?board_info_idx=${board_info_idx}&content_idx=${obj.content_idx}'>${obj.content_subject }</a></td>
+							<td><a href='${root }board/read?board_info_idx=${board_info_idx}&content_idx=${obj.content_idx}&page=${page}'>${obj.content_subject }</a></td>
 							<td class="text-center d-none d-md-table-cell">${obj.content_writer_name }</td>
 							<td class="text-center d-none d-md-table-cell">${obj.content_date }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-			
+			<!-- 페이지네이션 -->
 			<div class="d-none d-md-block">
 				<ul class="pagination justify-content-center">
+					<!-- 이전 -->
 					<c:choose>
-					<c:when test="${page.prevPage <= 0 }">
+					<c:when test="${paging.prevPage <= 0 }">
 						<li class="page-item disabled">
-							<a href="${root }board/main?board_info_idx=${board_info_idx}&page=${page.prevPage}" class="page-link">이전</a>
+							<a href="${root }board/main?board_info_idx=${board_info_idx}&page=${paging.prevPage}" class="page-link">이전</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a href="${root }board/main?board_info_idx=${board_info_idx}&page=${page.prevPage}" class="page-link">이전</a>
+							<a href="${root }board/main?board_info_idx=${board_info_idx}&page=${paging.prevPage}" class="page-link">이전</a>
 						</li>					
 					</c:otherwise>
 					</c:choose>
-
-					<c:forEach var="idx" begin="${page.min }" end="${page.max }">
+					<!-- 현재 -->
+					<c:forEach var="idx" begin="${paging.min }" end="${paging.max }">
 						<c:choose>
-						<c:when test="${idx == page.currentPage }">
-							<li class="page-item active">
+						<c:when test="${idx == paging.currentPage }">
+							<li class="page-item active"><!-- 현재 페이지 버튼만 파랗게 -->
 								<a href="${root}board/main?board_info_idx=${board_info_idx}&page=${idx}" class="page-link">${idx }</a>
 							</li>
 						</c:when>
@@ -74,21 +75,24 @@
 						</c:otherwise>
 						</c:choose>
 					</c:forEach>
+					<!-- 다음 -->
 					<c:choose>
-					<c:when test="${page.max >= page.pageCnt }">
+					<c:when test="${paging.max >= paging.pageCnt }">
 						<li class="page-item disabled">
-							<a href="${root }board/main?board_info_idx=${board_info_idx}&page=${page.nextPage}" class="page-link">다음</a>
+							<a href="${root }board/main?board_info_idx=${board_info_idx}&page=${paging.nextPage}" class="page-link">다음</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a href="${root }board/main?board_info_idx=${board_info_idx}&page=${page.nextPage}" class="page-link">다음</a>
+							<a href="${root }board/main?board_info_idx=${board_info_idx}&page=${paging.nextPage}" class="page-link">다음</a>
 						</li>					
 					</c:otherwise>
 					</c:choose>
 
 				</ul>
 			</div>
+			<!-- 페이지네이션 end -->
+			
 			<div class="text-right">
 				<a href="${root }board/write?board_info_idx=${board_info_idx}" class="btn btn-primary">글쓰기</a>
 			</div>

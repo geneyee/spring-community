@@ -24,10 +24,14 @@ public class TopMenuInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		// TODO Auto-generated method stub
+		
 		List<BoardInfo> topMenuList = topMenuService.getTopMenuList();
 		request.setAttribute("topMenuList", topMenuList);
 		request.setAttribute("loginUser", loginUser);
+		// 주의할것 loginUser는 SessionScope bean이다. 
+		// session영역에 자동으로 저장되는 것이 아닌 브라우저 최초 요청 시 주입되는 bean을 의미.
+		// 그러므로, request.SetAttribute() 해줘서 jsp에서 사용한다. 
+		
 		
 		return true;
 	}

@@ -34,7 +34,7 @@ public class BoardController {
 	@Resource(name = "loginUser")
 	private User loginUser;
 	
-	@GetMapping("/main") // board/main=?board_info_idx={}
+	@GetMapping("/main") // board/main=?board_info_idx=${}&page=${}
 	public String main(@RequestParam int board_info_idx, Model model,
 			@RequestParam(value = "page", defaultValue = "1") int page) {
 		
@@ -46,14 +46,19 @@ public class BoardController {
 		List<Content> list = boardService.getContentList(board_info_idx, page);
 		model.addAttribute("list", list);
 		
+		// 페이지네이션
 		Page paging = boardService.getContentCnt(board_info_idx, page);
-		model.addAttribute("page", paging);
+		model.addAttribute("paging", paging);
+		
+		// board관련 uri에 page 파라미터 필요함
+		model.addAttribute("page", page);
 		
 		return "board/main";
 	}
 	
 	@GetMapping("/read")
-	public String read(@RequestParam int board_info_idx, @RequestParam int content_idx, Model model) {
+	public String read(@RequestParam int board_info_idx, @RequestParam int content_idx, Model model,
+			@RequestParam int page) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
 		model.addAttribute("content_idx", content_idx);
@@ -65,6 +70,8 @@ public class BoardController {
 		// 글 작성자만 수정, 삭제버튼 활성화
 		model.addAttribute("user_idx", loginUser.getUser_idx());
 		log.info("로그인 유저 idx => {}", loginUser.getUser_idx());
+		
+		model.addAttribute("page", page);
 		
 		return "board/read";
 	}
@@ -89,18 +96,23 @@ public class BoardController {
 	
 	@GetMapping("/modify")
 	public String modify(@RequestParam int board_info_idx, @RequestParam int content_idx, Model model, 
-			@ModelAttribute("modifyContent") Content content) {
+			@ModelAttribute("modifyContent") Content content, @RequestParam int page) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
 		model.addAttribute("content_idx", content_idx);
 		
 		boardService.getModifyContentInfo(content, content_idx, board_info_idx);
 		
+		model.addAttribute("page", page);
+		
 		return "board/modify";
 	}
 	
 	@PostMapping("modify_pro")
-	public String modify(@Valid @ModelAttribute("modifyContent") Content content, BindingResult result) {
+	public String modify(@Valid @ModelAttribute("modifyContent") Content content, BindingResult result,
+			@RequestParam int page, Model model) {
+		
+		model.addAttribute("page", page);
 		
 		if(result.hasErrors()) {
 			return "board/modify";
