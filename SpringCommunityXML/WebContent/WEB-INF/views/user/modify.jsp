@@ -39,12 +39,12 @@
 					</div>
 					<div class="form-group">
 						<form:label path="user_pw">비밀번호</form:label>
-						<form:input path="user_pw" class="form-control"/>
+						<form:password path="user_pw" class="form-control"/>
 						<form:errors path="user_pw" style="color:red" />
 					</div>
 					<div class="form-group">
 						<form:label path="user_pw2">비밀번호 확인</form:label>
-						<form:input path="user_pw2" class="form-control" />
+						<form:password path="user_pw2" class="form-control" />
 						<form:errors path="user_pw2" style="color:red" />
 					</div>
 					<div class="form-group">

@@ -29,6 +29,7 @@ public class MainController {
 	@GetMapping("/main")
 	public String main(Model model) {
 		
+		// 글 목록
 		ArrayList<List<Content>> list = new ArrayList<List<Content>>();
 		
 		for(int i = 1; i <= 4; i++) {
@@ -38,6 +39,7 @@ public class MainController {
 		
 		model.addAttribute("list", list);
 		
+		// 게시판 이름
 		List<BoardInfo> board_list = topMenuService.getTopMenuList();
 		model.addAttribute("board_list", board_list);
 

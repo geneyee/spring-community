@@ -79,17 +79,18 @@ public class BoardController {
 	@GetMapping("/write")
 	public String write(@ModelAttribute("writeContent") Content content, @RequestParam int board_info_idx, Model model) {
 		
-		model.addAttribute("board_info_idx", board_info_idx);
+		content.setContent_board_idx(board_info_idx);
 		
 		return "board/write";
 	}
 	
 	@PostMapping("/write_pro")
-	public String write(@Valid @ModelAttribute("writeContent") Content content, BindingResult result, @RequestParam int board_info_idx) {
+	public String write(@Valid @ModelAttribute("writeContent") Content content, BindingResult result) {
 		if(result.hasErrors()) {
 			return "board/write";
 		}
-		boardService.addContentInfo(content, board_info_idx);
+		
+		boardService.addContentInfo(content);
 		
 		return "board/write_success";
 	}

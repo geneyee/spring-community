@@ -23,7 +23,7 @@
 <!-- 게시판 미리보기 부분 -->
 <div class="container" style="margin-top:100px">
 	<div class="row">
-		<c:forEach var="sub_list" items="${list }" varStatus="idx">
+		<c:forEach var="sub_list" items="${list }" varStatus="idx"><!-- varStatus : 반복횟수 -->
 			<div class="col-lg-6" style="margin-top:20px">
 				<div class="card shadow">
 					<div class="card-body">

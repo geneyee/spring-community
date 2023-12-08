@@ -63,9 +63,9 @@ public class BoardService {
 	}
 	
 	// 글쓰기
-	public void addContentInfo(Content content, int board_info_idx) {
+	public void addContentInfo(Content content) {
 		
-		log.info("카테고리 번호 => {}", board_info_idx);
+		log.info("카테고리 번호 => {}", content.getContent_board_idx());
 		
 		MultipartFile upload_file = content.getUpload_file();
 		
@@ -78,7 +78,7 @@ public class BoardService {
 		}
 		
 		// 게시판 idx
-		content.setContent_board_idx(board_info_idx);
+//		content.setContent_board_idx(board_info_idx);
 		// 유저 idx
 		content.setContent_writer_idx(loginUser.getUser_idx());
 		

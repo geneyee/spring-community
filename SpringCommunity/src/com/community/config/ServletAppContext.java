@@ -142,7 +142,7 @@ public class ServletAppContext implements WebMvcConfigurer {
 		reg2.addPathPatterns("/user/modify", "/user/modify_pro", "/user/logout", "/board/*");
 		reg2.excludePathPatterns("/board/main");
 		
-		// 작성자와 로그인 유저 같을 경우에만 - 글 수정
+		// 작성자와 로그인 유저 같을 경우에만 - 글 수정, 삭제
 		CheckWriterInterceptor checkWriterInterceptor = new CheckWriterInterceptor(loginUser, boardService);
 		InterceptorRegistration reg3 = registry.addInterceptor(checkWriterInterceptor);
 		reg3.addPathPatterns("/board/modify", "/board/delete");
