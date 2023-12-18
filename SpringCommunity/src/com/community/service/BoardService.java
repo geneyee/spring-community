@@ -117,14 +117,16 @@ public class BoardService {
 		
 		Content target = getContentInfo(content_idx);
 		
-		content.setContent_writer_name(target.getContent_writer_name());
-		content.setContent_date(target.getContent_date());
-		content.setContent_subject(target.getContent_subject());
-		content.setContent_text(target.getContent_text());
-		content.setContent_file(target.getContent_file());
-		content.setContent_board_idx(board_info_idx);
-		content.setContent_idx(content_idx);
-		content.setContent_writer_idx(target.getContent_writer_idx());
+//		content.setContent_writer_name(target.getContent_writer_name());
+//		content.setContent_date(target.getContent_date());
+//		content.setContent_subject(target.getContent_subject());
+//		content.setContent_text(target.getContent_text());
+//		content.setContent_file(target.getContent_file());
+//		content.setContent_board_idx(board_info_idx);
+//		content.setContent_idx(content_idx);
+//		content.setContent_writer_idx(target.getContent_writer_idx());
+		
+		content.update(target);
 		
 	}
 	
